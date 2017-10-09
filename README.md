@@ -3,6 +3,26 @@ This is an interview challenge for Paytm Labs. Please feel free to fork. Pull Re
 
 The challenge is to make make analytical observations about the data using the distributed tools below.
 
+# Build
+Use gradle build to compile a light JAR. Meant to be deployed and run as a spark job in a Hadoop cluster.
+
+    # built in IntelliJ IDEA
+    # Outputs to 'build/libs/challenge-webLogs-spark-2.1.1-v1.0.jar'
+    # To build: `./gradlew clean && ./gradlew lightJar`
+
+# Run
+This jar is called by spark using **spark-submit**
+ 
+ Mandatory parameters : 
+    **hiveDB=HiveDBNAME**   :  Hive Database Name
+    **inputPath=hdfs:///user/<USERNAME>/challenge/data**  :  Input data file path
+
+###Syntax
+     ./spark-submit --master yarn-client --conf spark.ui.port=1212 --jars /Users/<USERNAME>/challenge-webLogs-spark-2.1.1-v1.0.jar \
+      --driver-memory 20g --executor-memory 20g --executor-cores 4 --num-executors 10 --queue root.ABC --class org.paytm.challenge.WebLogs \
+       /Users/<USERNAME>/challenge-webLogs-spark-2.1.1-v1.0.jar hiveDB=HiveDBNAME inputPath=hdfs:///user/<USERNAME>/challenge/data
+
+
 ## Processing & Analytical goals:
 
 1. Sessionize the web log by IP. Sessionize = aggregrate all page hits by visitor/IP during a fixed time window.

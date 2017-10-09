@@ -29,7 +29,7 @@ dependencies {
 }
 
 
-task fatJar(type: Jar) {
+task lightJar(type: Jar) {
     zip64 true
     manifest {
         attributes 'Implementation-Title': 'WebLogs',

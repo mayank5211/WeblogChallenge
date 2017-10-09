@@ -18,6 +18,7 @@ This jar is called by spark using **spark-submit**
     **inputPath=hdfs:///user/<USERNAME>/challenge/data**  :  Input data file path
 
 ###Syntax
+
      ./spark-submit --master yarn-client --conf spark.ui.port=1212 --jars /Users/<USERNAME>/challenge-webLogs-spark-2.1.1-v1.0.jar \
       --driver-memory 20g --executor-memory 20g --executor-cores 4 --num-executors 10 --queue root.ABC --class org.paytm.challenge.WebLogs \
        /Users/<USERNAME>/challenge-webLogs-spark-2.1.1-v1.0.jar hiveDB=HiveDBNAME inputPath=hdfs:///user/<USERNAME>/challenge/data

@@ -1,0 +1,47 @@
+group 'org.paytm'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'scala'
+apply plugin: 'maven'
+apply plugin: 'idea'
+
+
+sourceCompatibility = 1.7
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    provided
+    compile.extendsFrom provided
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    apply plugin: 'idea'
+    provided 'org.scala-lang:scala-library:2.11.4'
+    provided group: 'org.apache.spark', name: 'spark-core_2.11', version: '2.1.1'
+    provided group: 'org.apache.spark', name: 'spark-sql_2.11', version: '2.1.1'
+    provided group: 'org.apache.spark', name: 'spark-hive_2.11', version: '2.1.1'
+
+}
+
+
+task fatJar(type: Jar) {
+    zip64 true
+    manifest {
+        attributes 'Implementation-Title': 'WebLogs',
+                'Implementation-Version': version,
+                'Main-Class': 'org.paytm.challenge.WebLogs'
+    }
+    version = 'v1.0'
+    baseName = project.name + '-webLogs-spark-2.1.1'
+
+    from { (configurations.runtime - configurations.provided).collect {
+        it.isDirectory() ? it : zipTree(it)
+    }
+    }
+    with jar
+}
